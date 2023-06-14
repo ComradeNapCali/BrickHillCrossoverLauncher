@@ -63,7 +63,7 @@ Before you continue, make sure CrossOver is installed on your Mac or Linux devic
 4. Open CrossOver, then go to Bottle -> New Bottle and name it something along the lines of "Brick Hill".
 5. Install the legacy client onto the newly created bottle.
     * If you are on an Apple Silicon device and the installer quits immediately, you can open cmd on the bottle, put the path to the installer, and press enter. 
-6. Go to the releases page and download the latest version's zip file.
+6. Go to the [releases page](https://github.com/ComradeNapCali/BrickHillCrossoverLauncher/releases/) and download the latest version's zip file.
 7. Extract the launcher to the virtual C drive of your bottle.
 8. Click Run Command and browse to "BrickHillCrossoverLauncher.exe", then click on "Save Command as a Launcher".
 9. Double click the launcher from the bottle's app list.
