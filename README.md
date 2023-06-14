@@ -4,11 +4,10 @@
 <div>
   <p align="center">
     A (browser-less) Brick Hill launcher designed for CrossOver.
-    
  </p>
-<center>
-<img align="center" src="https://i.imgur.com/T1tTyzt.png" width="450" title="hover text">
-</center>
+ <p align="center">
+   <img align="center" src="https://i.imgur.com/T1tTyzt.png" width="450" title="hover text">
+ </p>
 </div>
 
 
