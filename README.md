@@ -7,7 +7,7 @@
     
  </p>
 <center>
-<img src="https://i.imgur.com/T1tTyzt.png" width="450" title="hover text">
+<img align="center" src="https://i.imgur.com/T1tTyzt.png" width="450" title="hover text">
 </center>
 </div>
 
