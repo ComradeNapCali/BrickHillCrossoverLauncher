@@ -74,12 +74,20 @@ Before you continue, make sure CrossOver is installed on your Mac or Linux devic
 13. Replace "INSERT_YOURS_HERE" with your copied cookie.
 14. Close the launcher.
 
-### Joining a game
+### Joining a game (Brick-Hill)
 
 1. Find a game you want to play on the Brick Hill website and copy the URL.
 2. Double click the launcher from the bottle's app list.
 3. Paste (or manually enter) the link into the launcher and click "Launch Game".
 4. If successful, Brick Hill will open up. Have fun!
+
+### Joining a game (Node-Hill)
+
+1. Launch a Node-Hill server.
+2. Double click the launcher from the bottle's app list.
+3. Enter `localhost`  into the launcher and click "Launch Game".
+4. If successful, Brick Hill will open up into your local server. Happy developing!
+
 
 <img src="https://i.imgur.com/dBlCUYT.png" width="550" title="hover text">
 
@@ -109,7 +117,7 @@ You will need the following in order to build the launcher:
 
 - [ ] Cleaning up the code.
 - [ ] Figure out a better way to get the session cookie.
-- [ ] Add localhost support (for node-hill development)
+- [x] Add localhost support (for node-hill development)
 - [ ] Add a favorite games list feature.
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
