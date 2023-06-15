@@ -84,11 +84,12 @@ fn launch_game(button: &gtk::Button, in_field: &Entry)
     let mut game_token: String = String::new();
     let mut game_ip: String = String::new();
     let mut game_port: String = String::new();
-    if (in_url.eq("localhost"))
+    let (game_token, game_ip, game_port) = if (in_url.as_str() == "localhost")
     {
         game_token = String::from("local");
         game_ip = String::from("local");
         game_port = String::from("42480");
+        (game_token, game_ip, game_port)
     }
     else
     {
@@ -118,7 +119,8 @@ fn launch_game(button: &gtk::Button, in_field: &Entry)
         let token_request = token_client.unwrap();
         let token_request_json: Value = serde_json::from_str(token_request.as_str()).unwrap();
         let game_token = token_request_json.get("token").unwrap().as_str().unwrap().to_string();
-    }
+        (game_token, game_ip, game_port)
+    };
 
     let launcher_arg = format!("brickhill.legacy://client/{}/{}/{}", game_token, game_ip, game_port);
     println!("{}", launcher_arg);
