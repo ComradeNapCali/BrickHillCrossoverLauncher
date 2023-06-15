@@ -81,32 +81,45 @@ fn launch_game(button: &gtk::Button, in_field: &Entry)
     }
 
     let in_url = in_field.text().to_string();
-    if !(in_url.starts_with("http")) || !(in_url.contains("brick-hill"))
+    let mut game_token: String = String::new();
+    let mut game_ip: String = String::new();
+    let mut game_port: String = String::new();
+    if (in_url.eq("localhost"))
     {
-        button.set_label("Invalid Brick Hill URL!");
-        return;
+        game_token = String::from("local");
+        game_ip = String::from("local");
+        game_port = String::from("42480");
     }
-    let game_page_req = ureq::get(in_url.as_str()).call().unwrap().into_string().unwrap();
-    let game_page_dom = tl::parse(game_page_req.as_str(), tl::ParserOptions::default()).unwrap();
-    let game_page_parser = game_page_dom.parser();
-    let game_page_details = game_page_dom.get_element_by_id("setpage-v")
-        .unwrap()
-        .get(game_page_parser)
-        .unwrap();
-    let game_page_attributes = game_page_details.as_tag().unwrap().attributes();
-    let game_id = get_attribute_key(game_page_attributes, ":set-id");
-    let game_ip = decode_b64(get_attribute_key(game_page_attributes, "set-ip").chars().rev().collect::<String>());
-    let game_port = get_attribute_key(game_page_attributes, "set-port");
+    else
+    {
+        if !(in_url.starts_with("http")) || !(in_url.contains("brick-hill"))
+        {
+            button.set_label("Invalid Brick Hill URL!");
+            return;
+        }
+        let game_page_req = ureq::get(in_url.as_str()).call().unwrap().into_string().unwrap();
+        let game_page_dom = tl::parse(game_page_req.as_str(), tl::ParserOptions::default()).unwrap();
+        let game_page_parser = game_page_dom.parser();
+        let game_page_details = game_page_dom.get_element_by_id("setpage-v")
+            .unwrap()
+            .get(game_page_parser)
+            .unwrap();
+        let game_page_attributes = game_page_details.as_tag().unwrap().attributes();
+        let game_id = get_attribute_key(game_page_attributes, ":set-id");
+        let game_ip = decode_b64(get_attribute_key(game_page_attributes, "set-ip").chars().rev().collect::<String>());
+        let game_port = get_attribute_key(game_page_attributes, "set-port");
 
-    let token_request_url = format!("https://api.brick-hill.com/v1/auth/generateToken?set={}", game_id);
-    let token_client = ureq::get(token_request_url.as_str())
-        .set("Cookie", format!("brick_hill_session={}", token).as_str())
-        .call()
-        .unwrap()
-        .into_string();
-    let token_request = token_client.unwrap();
-    let token_request_json: Value = serde_json::from_str(token_request.as_str()).unwrap();
-    let game_token = token_request_json.get("token").unwrap().as_str().unwrap().to_string();
+        let token_request_url = format!("https://api.brick-hill.com/v1/auth/generateToken?set={}", game_id);
+        let token_client = ureq::get(token_request_url.as_str())
+            .set("Cookie", format!("brick_hill_session={}", token).as_str())
+            .call()
+            .unwrap()
+            .into_string();
+        let token_request = token_client.unwrap();
+        let token_request_json: Value = serde_json::from_str(token_request.as_str()).unwrap();
+        let game_token = token_request_json.get("token").unwrap().as_str().unwrap().to_string();
+    }
+
     let launcher_arg = format!("brickhill.legacy://client/{}/{}/{}", game_token, game_ip, game_port);
     println!("{}", launcher_arg);
 
